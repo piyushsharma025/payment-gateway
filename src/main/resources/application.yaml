@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: razorpay
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/razorpayDB}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:Piyush@9090}
+  jpa: # Jakarta Persistence API
+    hibernate:
+      ddl-auto: create # all previous tables will get dropped and gets created again when you restart application
+    show-sql: true # what sql is getting triggered by the hibernate
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
