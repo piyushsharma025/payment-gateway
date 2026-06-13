@@ -2,11 +2,18 @@ package com.piyush.paymentgateway.merchant.entity;
 
 import com.piyush.paymentgateway.common.enums.Environment;
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name = "api_key")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class ApiKey {
 
     @Id
