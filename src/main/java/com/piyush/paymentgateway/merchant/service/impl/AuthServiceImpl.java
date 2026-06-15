@@ -10,6 +10,7 @@ import com.piyush.paymentgateway.merchant.entity.Merchant;
 import com.piyush.paymentgateway.merchant.repository.AppUserRepository;
 import com.piyush.paymentgateway.merchant.repository.MerchantRepository;
 import com.piyush.paymentgateway.merchant.service.AuthService;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
