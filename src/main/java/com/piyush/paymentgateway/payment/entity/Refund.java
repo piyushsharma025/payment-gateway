@@ -1,5 +1,6 @@
 package com.piyush.paymentgateway.payment.entity;
 
+import com.piyush.paymentgateway.common.entity.BaseEntity;
 import com.piyush.paymentgateway.common.entity.Money;
 import com.piyush.paymentgateway.common.enums.RefundStatus;
 import jakarta.persistence.*;
@@ -12,7 +13,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "refund")
-public class Refund {
+public class Refund  extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

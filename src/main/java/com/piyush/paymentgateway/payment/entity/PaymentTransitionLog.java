@@ -1,5 +1,6 @@
 package com.piyush.paymentgateway.payment.entity;
 
+import com.piyush.paymentgateway.common.entity.BaseEntity;
 import com.piyush.paymentgateway.common.enums.PaymentActor;
 import com.piyush.paymentgateway.common.enums.PaymentEvent;
 import com.piyush.paymentgateway.common.enums.PaymentStatus;
@@ -9,8 +10,10 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "payment_transition_log")
-public class PaymentTransitionLog {
+@Table(name = "payment_transition_log", indexes = {
+        @Index(name = "idx_payemnet_transition_payment_id", columnList = "payment_id")
+})
+public class PaymentTransitionLog  extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

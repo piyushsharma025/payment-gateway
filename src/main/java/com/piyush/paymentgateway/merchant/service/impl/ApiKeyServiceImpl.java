@@ -7,6 +7,7 @@ import com.piyush.paymentgateway.merchant.dto.response.ApiKeyCreateResponse;
 import com.piyush.paymentgateway.merchant.dto.response.ApiKeyResponse;
 import com.piyush.paymentgateway.merchant.entity.ApiKey;
 import com.piyush.paymentgateway.merchant.entity.Merchant;
+import com.piyush.paymentgateway.merchant.mapper.ApiKeyMapper;
 import com.piyush.paymentgateway.merchant.repository.ApiKeyRepository;
 import com.piyush.paymentgateway.merchant.repository.MerchantRepository;
 import com.piyush.paymentgateway.merchant.service.ApiKeyService;
@@ -28,6 +29,7 @@ public class ApiKeyServiceImpl implements ApiKeyService  {
 
     private final MerchantRepository merchantRepository;
     private final ApiKeyRepository apiKeyRepository;
+    private final ApiKeyMapper apiKeyMapper;
 
 
     @Override
@@ -53,15 +55,15 @@ public class ApiKeyServiceImpl implements ApiKeyService  {
 
     @Override
     public List<ApiKeyResponse> listByMerchant(UUID merchantId) {
-        return apiKeyRepository.findByMerchant_Id(merchantId).stream()
-                .map(apiKey ->
-                        new ApiKeyResponse(
-                                apiKey.getId(),
-                                apiKey.getKeyId(),
-                                apiKey.getEnvironment(),
-                                apiKey.isEnabled(),
-                                apiKey.getLastUsedAt(), null))
-                .toList();
+        return apiKeyMapper.toResponseList(apiKeyRepository.findByMerchant_Id(merchantId));
+//                .map(apiKey ->
+//                        new ApiKeyResponse(
+//                                apiKey.getId(),
+//                                apiKey.getKeyId(),
+//                                apiKey.getEnvironment(),
+//                                apiKey.isEnabled(),
+//                                apiKey.getLastUsedAt(), null))
+//                .toList();
     }
 
     @Override
@@ -80,6 +82,8 @@ public class ApiKeyServiceImpl implements ApiKeyService  {
     public @Nullable ApiKeyCreateResponse rotate(UUID merchantId, UUID keyId) {
         ApiKey apiKey = apiKeyRepository.findById(keyId).filter(apiKey1 -> apiKey1.getMerchant().getId().equals(merchantId))
                 .orElseThrow(()-> new ResourceNotFoundException("ApiKey",keyId));
+
+        if(!apiKey.isEnabled()) throw new RuntimeException(("Cannot rotate a disabled key"));
 
         String newRawSecret = Randomizer.randomBase64(40);
         apiKey.setPreviouskeySecretHash(apiKey.getKeySecretHash());

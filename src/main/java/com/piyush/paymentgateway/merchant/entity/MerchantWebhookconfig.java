@@ -1,12 +1,15 @@
 package com.piyush.paymentgateway.merchant.entity;
 
+import com.piyush.paymentgateway.common.entity.BaseEntity;
 import jakarta.persistence.*;
 
 import java.util.UUID;
 
 @Entity
-@Table(name = "merchant_webhook_config")
-public class MerchantWebhookconfig {
+@Table(name = "merchant_webhook_config", indexes = {
+        @Index(name = "idx_webhook_merchant_id", columnList = "merchant_id, enabled")
+})
+public class MerchantWebhookconfig  extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

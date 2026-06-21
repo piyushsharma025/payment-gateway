@@ -7,7 +7,7 @@ spring:
     password: ${DB_PASS:Piyush@9090}
   jpa: # Jakarta Persistence API
     hibernate:
-      ddl-auto: update # all previous tables will get dropped and gets created again when you restart application
+      ddl-auto: update # all previous tables will get dropped and gets created again when you restart application in case of create
     show-sql: true # what sql is getting triggered by the hibernate
 #    properties:
 #      hibernate:

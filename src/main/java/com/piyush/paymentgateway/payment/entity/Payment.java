@@ -1,9 +1,12 @@
 package com.piyush.paymentgateway.payment.entity;
 
+import com.piyush.paymentgateway.common.entity.BaseEntity;
 import com.piyush.paymentgateway.common.entity.Money;
 import com.piyush.paymentgateway.common.enums.PaymentMethod;
 import com.piyush.paymentgateway.common.enums.PaymentStatus;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -11,9 +14,14 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
 
+@Getter
+@Setter
 @Entity
-@Table(name = "payment")
-public class Payment {
+@Table(name = "payment", indexes = {
+        @Index(name = "idx_paymnet_order_id", columnList = "order_id"),
+        @Index(name = "idx_payment_merchant_id", columnList = "merchant_id")
+})
+public class Payment  extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.UUID)

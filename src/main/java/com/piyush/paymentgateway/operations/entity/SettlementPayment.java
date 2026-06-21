@@ -1,5 +1,6 @@
 package com.piyush.paymentgateway.operations.entity;
 
+import com.piyush.paymentgateway.common.entity.BaseEntity;
 import jakarta.persistence.*;
 
 @Entity
