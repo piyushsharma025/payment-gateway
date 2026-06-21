@@ -5,8 +5,7 @@ import com.piyush.paymentgateway.common.entity.Money;
 import com.piyush.paymentgateway.common.enums.PaymentMethod;
 import com.piyush.paymentgateway.common.enums.PaymentStatus;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -21,6 +20,9 @@ import java.util.UUID;
         @Index(name = "idx_paymnet_order_id", columnList = "order_id"),
         @Index(name = "idx_payment_merchant_id", columnList = "merchant_id")
 })
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Payment  extends BaseEntity {
 
     @Id
@@ -53,6 +55,9 @@ public class Payment  extends BaseEntity {
 
     @Column(length = 100)
     private String bankReference;
+
+    @Column(length = 100)
+    private String processorReference;
 
     @Column(length = 100)
     private String errorCode;
